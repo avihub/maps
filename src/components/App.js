@@ -2,6 +2,10 @@ import React from 'react';
 import MarksForm from './MarksForm';
 import MarksList from './MarksList';
 
+const uniqueId = () => {
+  return Math.random().toString(36).substr(2, 16);
+};
+
 class App extends React.Component {
 
   state = {
@@ -10,6 +14,7 @@ class App extends React.Component {
 
   onFormSubmit = formData => {
     console.log(formData)
+    formData.markId = uniqueId();
     console.log([...this.state.marks, formData])
     this.setState({ marks: [...this.state.marks, formData] })
   }

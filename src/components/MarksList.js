@@ -4,7 +4,7 @@ import MarkItem from './MarkItem'
 const MarksList = ({ marks }) => {
    return (
       <div>
-        {marks.map((mark, i) => <MarkItem key={i} mark={mark} />)}
+        {marks.map(mark => <MarkItem key={mark.markId} mark={mark} />)}
       </div>
    )
 }
