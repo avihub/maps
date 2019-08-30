@@ -1,5 +1,6 @@
 import React from 'react';
 import MarksForm from './MarksForm';
+import MarksList from './MarksList';
 
 class App extends React.Component {
 
@@ -17,6 +18,7 @@ class App extends React.Component {
     return (
       <div>
         <MarksForm onFormSubmit={this.onFormSubmit} />
+        <MarksList marks={this.state.marks}/>
       </div>
     )
   }
