@@ -1,10 +1,10 @@
 import React from 'react';
 import MarkItem from './MarkItem'
 
-const MarksList = ({ marks }) => {
+const MarksList = ({ marks, onItemDelete }) => {
    return (
       <div>
-        {marks.map(mark => <MarkItem key={mark.markId} mark={mark} />)}
+        {marks.map(mark => <MarkItem key={mark.id} mark={mark} onItemDelete={onItemDelete} />)}
       </div>
    )
 }

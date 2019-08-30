@@ -1,11 +1,13 @@
 import React from 'react';
 
-const MarkItem = ({ mark }) => {
-  const {lat, lng} = mark;
+const MarkItem = ({ mark, onItemDelete }) => {
+  const {lat, lng, id} = mark;
   return (
     <div>
-      <div> lat: {lat} </div>
-      <div> lng: {lng} </div>
+      <span> lat: {lat} </span>
+      <span> lng: {lng} </span>
+      <button>edit</button>
+      <button onClick={() => onItemDelete(id)}>delete</button>
     </div>
   )
 }
