@@ -67,7 +67,7 @@ class MarksForm extends React.Component {
   onFormSubmit = e => {
     e.preventDefault();
 
-    this.props.onFormSubmit(this.state.formData);
+    this.props.onFormSubmit({...this.state.formData});
 
     this.setState({
       ...defaultState
