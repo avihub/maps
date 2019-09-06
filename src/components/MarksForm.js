@@ -18,7 +18,8 @@ const defaultState = {
   selectedPlaceIndex: 0,
   formData: {
     lat: '',
-    lng: ''
+    lng: '',
+    placeName: ''
   }
 }
 
@@ -27,13 +28,14 @@ class MarksForm extends React.Component {
     ...defaultState
   }
 
-  onDropdownChange = e => {
+  onPlaceDropdownChange = e => {
     this.setState({
       selectedPlaceIndex: e.target.value,
       formData: {
         ...this.state.formData,
         lat: PLACES[e.target.value].lat,
-        lng: PLACES[e.target.value].lng
+        lng: PLACES[e.target.value].lng,
+        placeName: PLACES[e.target.value].placeName
       }
     })
   }
@@ -47,19 +49,22 @@ class MarksForm extends React.Component {
     });
   }
 
-  onFormTypeChange = e => {
+  onAddTypeChange = e => {
     let lat = '';
     let lng = '';
+    let placeName = '';
     if (e.target.value === FORM_TYPE.placeFromList) {
       lat = PLACES[0].lat;
       lng = PLACES[0].lng;
+      placeName = PLACES[0].placeName;
     }
     this.setState({
       formType: e.target.value,
       formData: {
         ...this.state.formData,
         lat,
-        lng
+        lng,
+        placeName
       }
     })
   }
@@ -74,6 +79,61 @@ class MarksForm extends React.Component {
     })
   }
 
+  getLatLngFields = () => {
+    return (
+      <div>
+        <label>lat:</label>
+        <input
+          type='text'
+          name='lat'
+          value={this.state.formData.lat}
+          onChange={this.onInputChange}
+        />
+        <label>lng:</label>
+        <input
+          type='text'
+          name='lng'
+          value={this.state.formData.lng}
+          onChange={this.onInputChange}
+        />
+      </div>
+    )
+  }
+
+  getPlacesDropDown = () => {
+    return (
+      <select value={this.state.selectedPlaceIndex} onChange={this.onPlaceDropdownChange}>
+        {PLACES.map((option, i) => <option key={option.placeName} value={i}>{option.placeName}</option>)}
+      </select>
+    )
+  }
+
+  getPlaceNameField = () => {
+    return (<div>
+      <label>placeName:</label>
+      <input
+        type='text'
+        name='placeName'
+        value={this.state.formData.placeName}
+        onChange={this.onInputChange}
+      />
+    </div>)
+  }
+
+  getAddFields = () => {
+    return (
+      <div>
+        {this.getFormTypeRadioBtns()}
+        {this.state.formType === FORM_TYPE.latAndLng ? this.getLatLngFields() : this.getPlacesDropDown()}
+      </div>
+    )
+  }
+
+  getFormFields = () => {
+     return this.props.editMark ? this.getPlaceNameField() : this.getAddFields()
+  }
+
+/*
   getFormFields = () => {
     switch (this.state.formType) {
       case FORM_TYPE.latAndLng:
@@ -97,7 +157,7 @@ class MarksForm extends React.Component {
         )
       case FORM_TYPE.placeFromList:
         return (
-          <select value={this.state.selectedPlaceIndex} onChange={this.onDropdownChange}>
+          <select value={this.state.selectedPlaceIndex} onChange={this.onPlaceDropdownChange}>
             {PLACES.map((option, i) => <option key={option.placeName} value={i}>{option.placeName}</option>)}
           </select>
         )
@@ -105,10 +165,11 @@ class MarksForm extends React.Component {
         return null;
     }
   }
+*/
 
   getFormTypeRadioBtns = () => {
     return (
-      <div onChange={this.onFormTypeChange}>
+      <div onChange={this.onAddTypeChange}>
         <div>
           <input
             type='radio'
@@ -131,7 +192,6 @@ class MarksForm extends React.Component {
           />
           <label htmlFor={FORM_TYPE.placeFromList}>Add Mark from list</label>
         </div>
-        {/*<input type='radio' name='submitType' value='editMark'></input>*/}
       </div>
     )
   }
@@ -139,7 +199,6 @@ class MarksForm extends React.Component {
   render() {
     return (
       <div>
-        {this.getFormTypeRadioBtns()}
         <form onSubmit={this.onFormSubmit}>
           {this.getFormFields()}
           <button type='submit'>Submit</button>
