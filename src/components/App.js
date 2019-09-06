@@ -9,7 +9,12 @@ const uniqueId = () => {
 class App extends React.Component {
 
   state = {
-    marks: []
+    marks: [
+      {lat: "as", lng: "b", id: 133},
+      {lat: "as", lng: "b", placeName: 'place1', id: 222},
+      {lat: "a", lng: "eee", id: 8378}
+    ],
+    formType: ''
   }
 
   onFormSubmit = formData => {
