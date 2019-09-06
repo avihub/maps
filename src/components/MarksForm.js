@@ -7,10 +7,10 @@ const FORM_TYPE = {
 }
 
 const PLACES = [
-  {name: 'Tel-Aviv', lat: '123', lng: '345'},
-  {name: 'Haifa', lat: '234', lng: '555'},
-  {name: 'Jerusalem', lat: '333', lng: '666'},
-  {name: 'Dead-Sea', lat: '444', lng: '777'},
+  {placeName: 'Tel-Aviv', lat: '123', lng: '345'},
+  {placeName: 'Haifa', lat: '234', lng: '555'},
+  {placeName: 'Jerusalem', lat: '333', lng: '666'},
+  {placeName: 'Dead-Sea', lat: '444', lng: '777'},
 ]
 
 const defaultState = {
@@ -98,7 +98,7 @@ class MarksForm extends React.Component {
       case FORM_TYPE.placeFromList:
         return (
           <select value={this.state.selectedPlaceIndex} onChange={this.onDropdownChange}>
-            {PLACES.map((option, i) => <option key={option.name} value={i}>{option.name}</option>)}
+            {PLACES.map((option, i) => <option key={option.placeName} value={i}>{option.placeName}</option>)}
           </select>
         )
       default:
