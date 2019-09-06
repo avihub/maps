@@ -1,9 +1,8 @@
 import React from 'react';
 
-const FORM_TYPE = {
+const ADD_TYPE = {
   latAndLng: 'latAndLng',
-  placeFromList: 'placeFromList',
-  edit: 'edit'
+  placeFromList: 'placeFromList'
 }
 
 const PLACES = [
@@ -14,7 +13,7 @@ const PLACES = [
 ]
 
 const defaultState = {
-  formType: FORM_TYPE.latAndLng,
+  formType: ADD_TYPE.latAndLng,
   selectedPlaceIndex: 0,
   formData: {
     lat: '',
@@ -26,6 +25,16 @@ const defaultState = {
 class MarksForm extends React.Component {
   state = {
     ...defaultState
+  }
+
+  static getDerivedStateFromProps (props, state) {
+    if (props.editMark) {
+      return {
+        ...state,
+        formData: {...defaultState.formData, ...props.editMark}
+      }
+    }
+    return null;
   }
 
   onPlaceDropdownChange = e => {
@@ -53,7 +62,7 @@ class MarksForm extends React.Component {
     let lat = '';
     let lng = '';
     let placeName = '';
-    if (e.target.value === FORM_TYPE.placeFromList) {
+    if (e.target.value === ADD_TYPE.placeFromList) {
       lat = PLACES[0].lat;
       lng = PLACES[0].lng;
       placeName = PLACES[0].placeName;
@@ -124,48 +133,23 @@ class MarksForm extends React.Component {
     return (
       <div>
         {this.getFormTypeRadioBtns()}
-        {this.state.formType === FORM_TYPE.latAndLng ? this.getLatLngFields() : this.getPlacesDropDown()}
+        {this.state.formType === ADD_TYPE.latAndLng ? this.getLatLngFields() : this.getPlacesDropDown()}
+      </div>
+    )
+  }
+
+  getEditFields = () => {
+    return (
+      <div>
+        {this.getLatLngFields()}
+        {this.getPlaceNameField()}
       </div>
     )
   }
 
   getFormFields = () => {
-     return this.props.editMark ? this.getPlaceNameField() : this.getAddFields()
+     return this.props.editMark ? this.getEditFields() : this.getAddFields()
   }
-
-/*
-  getFormFields = () => {
-    switch (this.state.formType) {
-      case FORM_TYPE.latAndLng:
-        return (
-          <div>
-            <label>lat:</label>
-            <input
-              type='text'
-              name='lat'
-              value={this.state.formData.lat}
-              onChange={this.onInputChange}
-            />
-            <label>lng:</label>
-            <input
-              type='text'
-              name='lng'
-              value={this.state.formData.lng}
-              onChange={this.onInputChange}
-            />
-          </div>
-        )
-      case FORM_TYPE.placeFromList:
-        return (
-          <select value={this.state.selectedPlaceIndex} onChange={this.onPlaceDropdownChange}>
-            {PLACES.map((option, i) => <option key={option.placeName} value={i}>{option.placeName}</option>)}
-          </select>
-        )
-      default:
-        return null;
-    }
-  }
-*/
 
   getFormTypeRadioBtns = () => {
     return (
@@ -174,23 +158,23 @@ class MarksForm extends React.Component {
           <input
             type='radio'
             name='submitType'
-            value={FORM_TYPE.latAndLng}
-            id={FORM_TYPE.latAndLng}
-            checked={this.state.formType === FORM_TYPE.latAndLng}
+            value={ADD_TYPE.latAndLng}
+            id={ADD_TYPE.latAndLng}
+            checked={this.state.formType === ADD_TYPE.latAndLng}
             readOnly
           />
-          <label htmlFor={FORM_TYPE.latAndLng}>Add Mark by lat and lng</label>
+          <label htmlFor={ADD_TYPE.latAndLng}>Add Mark by lat and lng</label>
         </div>
         <div>
           <input
             type='radio'
             name='submitType'
-            value={FORM_TYPE.placeFromList}
-            id={FORM_TYPE.placeFromList}
-            checked={this.state.formType === FORM_TYPE.placeFromList}
+            value={ADD_TYPE.placeFromList}
+            id={ADD_TYPE.placeFromList}
+            checked={this.state.formType === ADD_TYPE.placeFromList}
             readOnly
           />
-          <label htmlFor={FORM_TYPE.placeFromList}>Add Mark from list</label>
+          <label htmlFor={ADD_TYPE.placeFromList}>Add Mark from list</label>
         </div>
       </div>
     )

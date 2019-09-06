@@ -14,14 +14,18 @@ class App extends React.Component {
       {lat: "as", lng: "b", placeName: 'place1', id: 222},
       {lat: "a", lng: "eee", id: 8378}
     ],
-    formType: ''
+    editMark: null
+    // editMark: {lat: "a", lng: "eee", id: 8378}
   }
 
   onFormSubmit = formData => {
     console.log(formData)
     formData.id = uniqueId();
     console.log([...this.state.marks, formData])
-    this.setState({ marks: [...this.state.marks, formData] })
+    this.setState({
+      marks: [...this.state.marks, formData],
+      editMark: null
+    })
   }
 
   onItemDelete = markId => {
@@ -29,11 +33,15 @@ class App extends React.Component {
     this.setState({ marks: updatedArray })
   }
 
+  onMarkEdit = mark => {
+    this.setState({ editMark: mark })
+  }
+
   render() {
     return (
       <div>
-        <MarksForm onFormSubmit={this.onFormSubmit} />
-        <MarksList marks={this.state.marks} onItemDelete={this.onItemDelete} />
+        <MarksForm onFormSubmit={this.onFormSubmit} editMark={this.state.editMark} />
+        <MarksList marks={this.state.marks} onItemDelete={this.onItemDelete} onMarkEdit={this.onMarkEdit} />
       </div>
     )
   }
