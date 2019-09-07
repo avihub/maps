@@ -41,7 +41,7 @@ class Map extends React.Component {
       bermudaTriangle.setMap(map);
     }
     return (
-      <div id={'map'} style={{width: '700px', height: '600px'}}>
+      <div id={'map'} style={{width: '100%', height: '600px'}}>
         MAP
       </div>
     )
