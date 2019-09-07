@@ -23,6 +23,10 @@ class MapBing extends React.Component {
         map = new window.Microsoft.Maps.Map('#map', {zoom: 1});
       }
 
+      for (let i = map.entities.getLength() - 1; i >= 0; i--) {
+        map.entities.removeAt(i);
+      }
+
       //Create array of locations to form a ring.
       let exteriorRing = this.props.marks.map(mark => {
         return new window.Microsoft.Maps.Location(mark.lat, mark.lng)
