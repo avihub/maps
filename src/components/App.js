@@ -1,7 +1,7 @@
 import React from 'react';
 import MarksForm from './MarksForm';
 import MarksList from './MarksList';
-import Map from './Map';
+import MapBing from './MapBing';
 import {uniqueId} from '../utils';
 
 class App extends React.Component {
@@ -13,7 +13,8 @@ class App extends React.Component {
       {lat: 32.321, lng: -64.757, placeName: 'place1', id: 222},
       {lat: 25.774, lng: -80.190, id: 8378}
     ],
-    editMark: null
+    editMark: null,
+    mapApiReady: false
   }
 
   onFormSubmit = formData => {
@@ -49,11 +50,15 @@ class App extends React.Component {
     this.setState({ editMark: mark })
   }
 
+  onMapApiReady = () => {
+    this.setState({ mapApiReady: true })
+  }
+
   render() {
     return (
       <div>
         <MarksForm onFormSubmit={this.onFormSubmit} editMark={this.state.editMark} />
-        <Map marks={this.state.marks}/>
+        <MapBing marks={this.state.marks} onMapApiReady={this.onMapApiReady} />
         <MarksList marks={this.state.marks} onItemDelete={this.onItemDelete} onMarkEdit={this.onMarkEdit} />
       </div>
     )

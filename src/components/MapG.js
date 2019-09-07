@@ -1,9 +1,9 @@
 import React from 'react';
 
-let map;
+let mapG;
 
 const initMap = () => {
-  map = new window.google.maps.Map(document.getElementById('map'), {
+  mapG = new window.google.maps.Map(document.getElementById('map'), {
     zoom: 5,
     center: {lat: 24.886, lng: -70.268},
     mapTypeId: 'terrain'
@@ -25,7 +25,7 @@ class Map extends React.Component {
   render() {
     console.log('render map with marks: ', this.props.marks)
     if (window.google && window.google.maps) {
-      map = new window.google.maps.Map(document.getElementById('map'), {
+      mapG = new window.google.maps.Map(document.getElementById('map'), {
         zoom: 5,
         center: {lat: 24.886, lng: -70.268},
         mapTypeId: 'terrain'
@@ -38,7 +38,7 @@ class Map extends React.Component {
                                                           fillColor: '#FF0000',
                                                           fillOpacity: 0.35
                                                         });
-      bermudaTriangle.setMap(map);
+      bermudaTriangle.setMap(mapG);
     }
     return (
       <div id={'map'} style={{width: '100%', height: '600px'}}>
