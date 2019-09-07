@@ -17,8 +17,31 @@ class App extends React.Component {
     mapApiReady: false
   }
 
+  compareMarks = (a, b) => {
+    return a.lat - b.lat;
+  }
+
+  bonusAlg = marks => {
+    let resultArray = [];
+    let fromLowest = marks.sort(this.compareMarks)
+    let verticalCenter = fromLowest[0].lng;
+    fromLowest.forEach(mark => {
+      if (mark.lng <= verticalCenter) {
+        resultArray.push(mark);
+      }
+    })
+    fromLowest.reverse();
+    fromLowest.forEach(mark => {
+      if (mark.lng > verticalCenter) {
+        resultArray.push(mark);
+      }
+    })
+    return resultArray;
+  }
+
   onFormSubmit = formData => {
     console.log('formData to submit: ', formData)
+    let sortedMarks;
     if (formData.id) { // edit mark
       let marks = [...this.state.marks]
       for (let i = 0 ; i < marks.length ; ++i) {
@@ -27,15 +50,17 @@ class App extends React.Component {
         }
       }
       console.log('new marks state after Edit mark: ', [...marks])
+      sortedMarks = this.bonusAlg([...marks]);
       this.setState({
-        marks: [...marks],
+        marks: sortedMarks,
         editMark: null
       })
     } else { // add mark
       formData.id = uniqueId();
       console.log('new marks state after Add mark: ', [...this.state.marks, formData])
+      sortedMarks = this.bonusAlg([...this.state.marks, formData]);
       this.setState({
-        marks: [...this.state.marks, formData],
+        marks: sortedMarks,
         editMark: null
       })
     }
