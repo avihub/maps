@@ -29,15 +29,14 @@ class MarksForm extends React.Component {
     ...defaultState
   }
 
-  static getDerivedStateFromProps (props, state) {
-    if (props.editMark && props.editMark.id !== state.formData.id) {
-      return {
-        ...state,
-        formType: 'edit',
-        formData: {...defaultState.formData, ...props.editMark}
-      }
-    }
-    return null;
+  componentDidUpdate(prevProps) {
+   if (this.props.editMark && prevProps !== this.props) {
+     this.setState({
+       ...defaultState,
+       formType: 'edit',
+       formData: {...defaultState.formData, ...this.props.editMark}
+     })
+   }
   }
 
   onPlaceDropdownChange = e => {
@@ -146,7 +145,7 @@ class MarksForm extends React.Component {
   }
 
   getFormFields = () => {
-     return this.props.editMark ? this.getEditFields() : this.getAddFields()
+     return this.state.formType === 'edit' ? this.getEditFields() : this.getAddFields()
   }
 
   getFormTypeRadioBtns = () => {
