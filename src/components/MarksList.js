@@ -1,5 +1,5 @@
 import React from 'react';
-import MarkItem from './MarkItem'
+import MarkItem from './MarkItem';
 
 const MarksList = ({ marks, onItemDelete, onMarkEdit }) => {
    return (

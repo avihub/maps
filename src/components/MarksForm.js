@@ -1,6 +1,6 @@
 import React from 'react';
-import TextField from './generic/TextField'
-import RadioField from './generic/RadioField'
+import TextField from './generic/TextField';
+import RadioField from './generic/RadioField';
 
 const ADD_TYPE = {
   latAndLng: 'latAndLng',
@@ -11,17 +11,19 @@ const PLACES = [
   {placeName: 'Tel-Aviv', lat: '123', lng: '345'},
   {placeName: 'Haifa', lat: '234', lng: '555'},
   {placeName: 'Jerusalem', lat: '333', lng: '666'},
-  {placeName: 'Dead-Sea', lat: '444', lng: '777'},
+  {placeName: 'Dead-Sea', lat: '444', lng: '777'}
 ]
+
+const defaultMarkData = {
+  lat: '',
+  lng: '',
+  placeName: ''
+}
 
 const defaultState = {
   formType: ADD_TYPE.latAndLng,
   selectedPlaceIndex: 0,
-  formData: {
-    lat: '',
-    lng: '',
-    placeName: ''
-  }
+  formData: {...defaultMarkData}
 }
 
 class MarksForm extends React.Component {
@@ -61,21 +63,17 @@ class MarksForm extends React.Component {
   }
 
   onAddTypeChange = e => {
-    let lat = '';
-    let lng = '';
-    let placeName = '';
+    let markData = {...defaultMarkData}
     if (e.target.value === ADD_TYPE.placeFromList) {
-      lat = PLACES[0].lat;
-      lng = PLACES[0].lng;
-      placeName = PLACES[0].placeName;
+      markData.lat = PLACES[0].lat;
+      markData.lng = PLACES[0].lng;
+      markData.placeName = PLACES[0].placeName;
     }
     this.setState({
       formType: e.target.value,
       formData: {
         ...this.state.formData,
-        lat,
-        lng,
-        placeName
+        ...markData
       }
     })
   }
