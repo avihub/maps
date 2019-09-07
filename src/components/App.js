@@ -8,9 +8,10 @@ class App extends React.Component {
 
   state = {
     marks: [
-      {lat: "as", lng: "b", id: 133},
-      {lat: "as", lng: "b", placeName: 'place1', id: 222},
-      {lat: "a", lng: "eee", id: 8378}
+      {lat: 25.774, lng: -80.190, id: 'sadsxji'},
+      {lat: 18.466, lng: -66.118, id: 133},
+      {lat: 32.321, lng: -64.757, placeName: 'place1', id: 222},
+      {lat: 25.774, lng: -80.190, id: 8378}
     ],
     editMark: null
   }
@@ -52,7 +53,7 @@ class App extends React.Component {
     return (
       <div>
         <MarksForm onFormSubmit={this.onFormSubmit} editMark={this.state.editMark} />
-        <Map/>
+        <Map marks={this.state.marks}/>
         <MarksList marks={this.state.marks} onItemDelete={this.onItemDelete} onMarkEdit={this.onMarkEdit} />
       </div>
     )

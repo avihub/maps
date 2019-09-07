@@ -9,10 +9,10 @@ const FORM_TYPE = {
 }
 
 const PLACES = [
-  {placeName: 'Tel-Aviv', lat: '123', lng: '345'},
-  {placeName: 'Haifa', lat: '234', lng: '555'},
-  {placeName: 'Jerusalem', lat: '333', lng: '666'},
-  {placeName: 'Dead-Sea', lat: '444', lng: '777'}
+  {placeName: 'Tel-Aviv', lat: 1, lng: 60},
+  {placeName: 'Haifa', lat: 20, lng: 80},
+  {placeName: 'Jerusalem', lat: 30, lng: 40},
+  {placeName: 'Dead-Sea', lat: 50, lng: 60}
 ]
 
 const defaultMarkData = {
@@ -58,7 +58,7 @@ class MarksForm extends React.Component {
     this.setState({
       formData: {
         ...this.state.formData,
-        [e.target.name]: e.target.value
+        [e.target.name]: isNaN(parseFloat(e.target.value)) ? e.target.value : parseFloat(e.target.value)
       }
     });
   }
@@ -94,12 +94,14 @@ class MarksForm extends React.Component {
       <div>
         <TextField
           label={'lat'}
+          type={'number'}
           name='lat'
           value={this.state.formData.lat}
           onChange={this.onInputChange}
         />
         <TextField
           label={'lng'}
+          type={'number'}
           name='lng'
           value={this.state.formData.lng}
           onChange={this.onInputChange}
