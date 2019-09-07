@@ -1,6 +1,7 @@
 import React from 'react';
 import MarksForm from './MarksForm';
 import MarksList from './MarksList';
+import Map from './Map';
 import {uniqueId} from '../utils';
 
 class App extends React.Component {
@@ -51,6 +52,7 @@ class App extends React.Component {
     return (
       <div>
         <MarksForm onFormSubmit={this.onFormSubmit} editMark={this.state.editMark} />
+        <Map/>
         <MarksList marks={this.state.marks} onItemDelete={this.onItemDelete} onMarkEdit={this.onMarkEdit} />
       </div>
     )
