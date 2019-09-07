@@ -1,5 +1,6 @@
 import React from 'react';
 import TextField from './generic/TextField'
+import RadioField from './generic/RadioField'
 
 const ADD_TYPE = {
   latAndLng: 'latAndLng',
@@ -150,30 +151,15 @@ class MarksForm extends React.Component {
 
   getFormTypeRadioBtns = () => {
     return (
-      <div onChange={this.onAddTypeChange}>
-        <div>
-          <input
-            type='radio'
-            name='submitType'
-            value={ADD_TYPE.latAndLng}
-            id={ADD_TYPE.latAndLng}
-            checked={this.state.formType === ADD_TYPE.latAndLng}
-            readOnly
-          />
-          <label htmlFor={ADD_TYPE.latAndLng}>Add Mark by lat and lng</label>
-        </div>
-        <div>
-          <input
-            type='radio'
-            name='submitType'
-            value={ADD_TYPE.placeFromList}
-            id={ADD_TYPE.placeFromList}
-            checked={this.state.formType === ADD_TYPE.placeFromList}
-            readOnly
-          />
-          <label htmlFor={ADD_TYPE.placeFromList}>Add Mark from list</label>
-        </div>
-      </div>
+      <RadioField
+        name='submitType'
+        selectedValue={this.state.formType}
+        onChange={this.onAddTypeChange}
+        radios={[
+          {value: ADD_TYPE.latAndLng, label: 'Add Mark by lat and lng'},
+          {value: ADD_TYPE.placeFromList, label: 'Add Mark from list'}
+        ]}
+      />
     )
   }
 

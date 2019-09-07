@@ -1,10 +1,7 @@
 import React from 'react';
 import MarksForm from './MarksForm';
 import MarksList from './MarksList';
-
-const uniqueId = () => {
-  return Math.random().toString(36).substr(2, 16);
-};
+import {uniqueId} from '../utils';
 
 class App extends React.Component {
 
