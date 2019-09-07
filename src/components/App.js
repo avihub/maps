@@ -19,13 +19,26 @@ class App extends React.Component {
   }
 
   onFormSubmit = formData => {
-    console.log(formData)
-    formData.id = uniqueId();
-    console.log([...this.state.marks, formData])
-    this.setState({
-      marks: [...this.state.marks, formData],
-      editMark: null
-    })
+    if (formData.id) {
+      let marks = [...this.state.marks]
+      for (let i = 0 ; i < marks.length ; ++i) {
+        if (marks[i].id === formData.id) {
+          marks[i] = {...formData}
+        }
+      }
+      this.setState({
+        marks: [...marks],
+        editMark: null
+      })
+    } else {
+      console.log(formData)
+      formData.id = uniqueId();
+      console.log([...this.state.marks, formData])
+      this.setState({
+        marks: [...this.state.marks, formData],
+        editMark: null
+      })
+    }
   }
 
   onItemDelete = markId => {

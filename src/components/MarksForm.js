@@ -1,4 +1,5 @@
 import React from 'react';
+import TextField from './generic/TextField'
 
 const ADD_TYPE = {
   latAndLng: 'latAndLng',
@@ -28,9 +29,10 @@ class MarksForm extends React.Component {
   }
 
   static getDerivedStateFromProps (props, state) {
-    if (props.editMark) {
+    if (props.editMark && props.editMark.id !== state.formData.id) {
       return {
         ...state,
+        formType: 'edit',
         formData: {...defaultState.formData, ...props.editMark}
       }
     }
@@ -91,16 +93,14 @@ class MarksForm extends React.Component {
   getLatLngFields = () => {
     return (
       <div>
-        <label>lat:</label>
-        <input
-          type='text'
+        <TextField
+          label={'lat'}
           name='lat'
           value={this.state.formData.lat}
           onChange={this.onInputChange}
         />
-        <label>lng:</label>
-        <input
-          type='text'
+        <TextField
+          label={'lng'}
           name='lng'
           value={this.state.formData.lng}
           onChange={this.onInputChange}
@@ -118,15 +118,12 @@ class MarksForm extends React.Component {
   }
 
   getPlaceNameField = () => {
-    return (<div>
-      <label>placeName:</label>
-      <input
-        type='text'
-        name='placeName'
-        value={this.state.formData.placeName}
-        onChange={this.onInputChange}
-      />
-    </div>)
+    return <TextField
+      label={'place name'}
+      name='placeName'
+      value={this.state.formData.placeName}
+      onChange={this.onInputChange}
+    />
   }
 
   getAddFields = () => {
