@@ -7,12 +7,7 @@ import {uniqueId} from '../utils';
 class App extends React.Component {
 
   state = {
-    marks: [
-      {lat: 25.774, lng: -80.190, id: 'sadsxji'},
-      {lat: 18.466, lng: -66.118, id: 133},
-      {lat: 32.321, lng: -64.757, placeName: 'place1', id: 222},
-      {lat: 25.774, lng: -80.190, id: 8378}
-    ],
+    marks: [],
     editMark: null,
     mapApiReady: false
   }

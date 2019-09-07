@@ -27,20 +27,22 @@ class MapBing extends React.Component {
         map.entities.removeAt(i);
       }
 
-      //Create array of locations to form a ring.
-      let exteriorRing = this.props.marks.map(mark => {
-        return new window.Microsoft.Maps.Location(mark.lat, mark.lng)
-      })
+      if (this.props.marks.length > 0) {
+        //Create array of locations to form a ring.
+        let exteriorRing = this.props.marks.map(mark => {
+          return new window.Microsoft.Maps.Location(mark.lat, mark.lng)
+        })
 
-      //Create a polygon
-      let polygon = new window.Microsoft.Maps.Polygon(exteriorRing, {
-        fillColor: 'rgba(0, 255, 0, 0.5)',
-        strokeColor: 'red',
-        strokeThickness: 2
-      });
+        //Create a polygon
+        let polygon = new window.Microsoft.Maps.Polygon(exteriorRing, {
+          fillColor: 'rgba(0, 255, 0, 0.5)',
+          strokeColor: 'red',
+          strokeThickness: 2
+        });
 
-      //Add the polygon to map
-      map.entities.push(polygon);
+        //Add the polygon to map
+        map.entities.push(polygon);
+      }
     }
 
     return (
