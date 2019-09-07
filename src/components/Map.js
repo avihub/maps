@@ -1,8 +1,6 @@
 import React from 'react';
 
 const initMap = () => {
-  console.log('BBBBBBBBBBBBB')
-
   const myLatLng = {lat: -25.363, lng: 131.044};
 
   const map = new window.google.maps.Map(document.getElementById('map'), {
